@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://unpkg.com/react@15.3.2/dist/react.js"></script>
+  <script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+  <script src="https://npmcdn.com/react-router@2.4.0/umd/ReactRouter.min.js"></script>
+
+  <style>
+    body {
+      background-color: #BCCF00;
+      padding: 20px;
+      margin: 0;
+    }
+    h1, h2, h3, p, ul, li {
+      font-family: Helvetica, Arial, sans-serif;
+    }
+    ul.header li {
+      display: inline;
+      list-style-type: none;
+      margin: 0;
+    }
+    ul.header {
+      background-color: #111;
+      padding: 0;
+    }
+    ul.header li a {
+      color: #FFF;
+      font-weight: bold;
+      text-decoration: none;
+      padding: 20px;
+      display: inline-block;
+    }
+    .content {
+      background-color: #FFF;
+      padding: 20px;
+    }
+    .content h2 {
+      padding: 0;
+      margin: 0;
+    }
+    .content li {
+      margin-bottom: 10px;
+    }
+    .active {
+      background-color: #006600;
+    }
+  </style>
+  <title>Shop Direct - React Demo</title>
+</head>
+
+<body>
+
+  <div id="container">
+
+  </div>
+
+  <script type="text/babel">
+    var destination = document.querySelector("#container");
+
+    var { Router,
+      Route,
+      IndexRoute,
+      IndexLink,
+      Link } = ReactRouter;
+
+    var XboxOne = React.createClass({
+      render: function() {
+        var numberInStock = 5;
+        return (
+          <div>
+            <h2>Xbox One</h2>
+            <h3>Description</h3>
+            <p>Explore the world of Minecraft on Xbox One S, Includes
+            Favourites & Builders packs, and craft new Minecraft worlds
+            together with friends on Xbox Live</p>
+            <h3>Number in stock: {numberInStock}</h3>
+            <h3>Image Gallery</h3>
+            <img src="xboxOne1.png" height="150" />
+            <img src="xboxOne2.png" height="150" />
+            <img src="xboxOne3.png" height="150" />
+          </div>
+        );
+      }
+    });
+
+    var WiiU = React.createClass({
+      render: function() {
+        var numberInStock = 42;
+        return (
+          <div>
+            <h2>Wii U</h2>
+            <h3>Description</h3>
+            <p>Play games in new and exciting ways, starting with Mario Kart
+            8 included with this bundle. Play your games on the TV or on the
+            Wii U Gamepad if others want to use the TV. Share your views with
+            gamers around the world using the Nintendo MiiVerse. Mario,
+            Donkey Kong, Link and other classic Nintendo Characters bring a
+            strong line up of games for gamers of all ages.</p>
+            <h3>Number in stock: {numberInStock}</h3>
+          </div>
+        );
+      }
+    });
+
+    var PS4 = React.createClass({
+      render: function() {
+        var numberInStock = 0;
+        return (
+          <div>
+            <h2>PlayStation 4</h2>
+            <h3>Description</h3>
+            <p>Get ready for thrills and chills with this PS4 Slim Console
+            bundle featuring Resident Evil VII Biohazard. The compact and
+            sleek Slim console gives you an incredible entertainment
+            experience featuring the latest High Dynamic Range (HDR)
+            technology. Visuals are now more realistic, strikingly vivid and
+            truer to what the human eye sees in the real world, creating an
+            absorbing gaming experience suitable for all ages.</p>
+            <h3>Number in stock: {numberInStock}</h3>
+            <h3>Image Gallery</h3>
+            <img src="ps41.jpg" height="150" />
+            <img src="ps42.jpg" height="150" />
+            <img src="ps43.jpg" height="150" />
+          </div>
+        );
+      }
+    });
+
+    var App = React.createClass({
+      render: function() {
+        return (
+          <div>
+            <h1>Shop Direct - React Demo</h1>
+            <ul className="header">
+              <li><IndexLink to="/" activeClassName="active">Xbox One</IndexLink></li>
+              <li><Link to="/ps4" activeClassName="active">PlayStation 4</Link></li>
+              <li><Link to="/wiiu" activeClassName="active">Wii U</Link></li>
+            </ul>
+            <div className="content">
+              {this.props.children}
+            </div>
+          </div>
+        )
+      }
+    });
+
+    ReactDOM.render(
+      <Router>
+        <Route path="/" component={App}>
+          <IndexRoute component={XboxOne}/>
+          <Route path="ps4" component={PS4} />
+          <Route path="wiiu" component={WiiU} />
+        </Route>
+      </Router>,
+      destination
+    );
+  </script>
+</body>
+
+</html>
